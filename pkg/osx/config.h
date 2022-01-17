@@ -1,0 +1,11 @@
+#define PACKAGE_NAME "SRCD Doom"
+#define PACKAGE_TARNAME "srcd-doom"
+#define PACKAGE_VERSION "3.0.0"
+#define PACKAGE_STRING "SRCD Doom 3.0.0"
+#define PROGRAM_PREFIX "srcd-"
+
+#define HAVE_LIBSAMPLERATE
+#define HAVE_LIBPNG
+#define HAVE_DIRENT_H
+#define HAVE_DECL_STRCASECMP 1
+#define HAVE_DECL_STRNCASECMP 1
