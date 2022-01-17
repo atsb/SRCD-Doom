@@ -31,7 +31,7 @@ Speed Running and Competition Doom is compatible with the DOS Doom configuration
 (normally named `default.cfg`). Existing configuration files for DOS
 Doom should therefore simply work out of the box. However, Speed Running and Competition
 Doom also provides some extra settings. These are stored in a
-separate file named `cndoom.cfg`.
+separate file named `srcd-doom.cfg`.
 
 The configuration can be edited using the cnsetup tool.
 
@@ -60,14 +60,14 @@ IWAD on disk.
 To play TCs using Speed Running and Competition Doom, run like this:
 
 ```
-cndoom -merge thetc.wad
+srcd-doom -merge thetc.wad
 ```
 
 Here are some examples:
 
 ```
-cndoom -merge batman.wad -deh batman.deh vbatman.deh  (Batman Doom)
-cndoom -merge aoddoom1.wad -deh aoddoom1.deh  (Army of Darkness Doom)
+srcd-doom -merge batman.wad -deh batman.deh vbatman.deh  (Batman Doom)
+srcd-doom -merge aoddoom1.wad -deh aoddoom1.deh  (Army of Darkness Doom)
 ```
 
 ## Other information
