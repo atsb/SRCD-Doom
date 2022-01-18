@@ -1390,7 +1390,8 @@ void WI_updateStats(void)
 	cnt_kills[0] += 2;
 
 	if (!(bcnt&3))
-	    S_StartSound(0, sfx_pistol);
+        /* srcd - disable pistol counting sounds - with the timer not updating due to the change in how that works, it is odd when the pistol sound is playing but the time isn't moving.
+	    S_StartSound(0, sfx_pistol); */
 
 	if (cnt_kills[0] >= (plrs[me].skills * 100) / wbs->maxkills)
 	{
@@ -1404,7 +1405,8 @@ void WI_updateStats(void)
 	cnt_items[0] += 2;
 
 	if (!(bcnt&3))
-	    S_StartSound(0, sfx_pistol);
+        /* srcd - disable pistol counting sounds - with the timer not updating due to the change in how that works, it is odd when the pistol sound is playing but the time isn't moving.
+         S_StartSound(0, sfx_pistol); */
 
 	if (cnt_items[0] >= (plrs[me].sitems * 100) / wbs->maxitems)
 	{
@@ -1418,7 +1420,8 @@ void WI_updateStats(void)
 	cnt_secret[0] += 2;
 
 	if (!(bcnt&3))
-	    S_StartSound(0, sfx_pistol);
+        /* srcd - disable pistol counting sounds - with the timer not updating due to the change in how that works, it is odd when the pistol sound is playing but the time isn't moving.
+         S_StartSound(0, sfx_pistol); */
 
 	if (cnt_secret[0] >= (plrs[me].ssecret * 100) / wbs->maxsecret)
 	{
@@ -1431,7 +1434,8 @@ void WI_updateStats(void)
     else if (sp_state == 8)
     {
 	if (!(bcnt&3))
-	    S_StartSound(0, sfx_pistol);
+        /* srcd - disable pistol counting sounds - with the timer not updating due to the change in how that works, it is odd when the pistol sound is playing but the time isn't moving.
+         S_StartSound(0, sfx_pistol); */
 
 	cnt_time += 3;
 
