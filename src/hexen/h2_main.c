@@ -42,6 +42,10 @@
 #include "v_video.h"
 #include "w_main.h"
 
+// EXTERNS ------------------------------------------------------------------
+
+extern void DrawWorldTimer(void); 
+
 // MACROS ------------------------------------------------------------------
 
 #define MAXWADFILES 20
@@ -905,6 +909,7 @@ static void DrawAndBlit(void)
             {
                 R_RenderPlayerView(&players[displayplayer]);
             }
+    	    DrawWorldTimer();
             CT_Drawer();
             UpdateState |= I_FULLVIEW;
             SB_Drawer();

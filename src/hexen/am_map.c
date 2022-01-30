@@ -112,7 +112,7 @@ void DrawWuLine(int X0, int Y0, int X1, int Y1, byte * BaseColor,
                 int NumLevels, unsigned short IntensityBits);
 
 void AM_DrawDeathmatchStats(void);
-static void DrawWorldTimer(void);
+void DrawWorldTimer(void);
 
 // Calculates the slope and slope according to the x-axis of a line
 // segment in map coordinates (with the upright y-axis n' all) so
@@ -1506,7 +1506,7 @@ void AM_DrawDeathmatchStats(void)
 //
 //===========================================================================
 
-static void DrawWorldTimer(void)
+void DrawWorldTimer(void)
 {
     int days;
     int hours;

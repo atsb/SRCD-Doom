@@ -119,4 +119,6 @@ typedef struct
 
 // extern int f_x, f_y, f_w, f_h;
 
+void DrawWorldTimer(void);
+
 #endif
