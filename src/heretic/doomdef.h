@@ -467,6 +467,7 @@ typedef struct player_s
     int chickenPeck;            // chicken peck countdown
     mobj_t *rain1;              // active rain maker 1
     mobj_t *rain2;              // active rain maker 2
+    unsigned int worldTimer;    // total time the player's been playing
 } player_t;
 
 #define CF_NOCLIP		1

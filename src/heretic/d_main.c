@@ -45,6 +45,10 @@
 #include "w_main.h"
 #include "v_video.h"
 
+// EXTERNS ------------------------------------------------------------------
+
+extern void DrawWorldTimer(void); 
+
 #define CT_KEY_GREEN    'g'
 #define CT_KEY_YELLOW   'y'
 #define CT_KEY_RED      'r'
@@ -163,6 +167,7 @@ void D_Display(void)
                 AM_Drawer();
             else
                 R_RenderPlayerView(&players[displayplayer]);
+    	    DrawWorldTimer();
             CT_Drawer();
             UpdateState |= I_FULLVIEW;
             SB_Drawer();

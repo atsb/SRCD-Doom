@@ -23,6 +23,7 @@
 #include "i_timer.h"
 #include "i_video.h"
 #include "m_controls.h"
+#include "m_misc.h"
 #include "p_local.h"
 #include "am_map.h"
 #include "am_data.h"
@@ -170,6 +171,8 @@ static short mapxstart = 0;     //x-value for the bitmap.
 
 void DrawWuLine(int X0, int Y0, int X1, int Y1, byte * BaseColor,
                 int NumLevels, unsigned short IntensityBits);
+
+void DrawWorldTimer(void);
 
 // Calculates the slope and slope according to the x-axis of a line
 // segment in map coordinates (with the upright y-axis n' all) so
@@ -1512,6 +1515,7 @@ void AM_Drawer(void)
         AM_drawGrid(GRIDCOLORS);
     AM_drawWalls();
     AM_drawPlayers();
+    DrawWorldTimer();
     if (cheating == 2)
         AM_drawThings(THINGCOLORS, THINGRANGE);
 //  AM_drawCrosshair(XHAIRCOLORS);
@@ -1538,4 +1542,22 @@ void AM_Drawer(void)
     }
 //  I_Update();
 //  V_MarkRect(f_x, f_y, f_w, f_h);
+}
+
+//===========================================================================
+//
+// DrawWorldTimer
+//
+//===========================================================================
+
+void DrawWorldTimer(void)
+{
+    int mins;
+    char timeBuffer[16];
+
+    mins = leveltime / TICRATE / 60;
+    M_snprintf (timeBuffer, sizeof(timeBuffer), "%02i : %05.2f", mins,
+                  (float)(leveltime % (60*TICRATE)) / TICRATE);
+
+    MN_DrTextA(timeBuffer, 240, 8);
 }

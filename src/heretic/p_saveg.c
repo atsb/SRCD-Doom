@@ -512,6 +512,9 @@ static void saveg_read_player_t(player_t *str)
     // mobj_t *rain2;
     SV_ReadLong();
     str->rain2 = NULL;
+
+    // unsigned int worldTimer;
+    str->worldTimer = SV_ReadLong();
 }
 
 static void saveg_write_player_t(player_t *str)
@@ -677,6 +680,9 @@ static void saveg_write_player_t(player_t *str)
 
     // mobj_t *rain2;
     SV_WritePtr(str->rain2);
+
+    // unsigned int worldTimer;
+    SV_WriteLong(str->worldTimer);
 }
 
 

@@ -560,6 +560,7 @@ void P_PlayerThink(player_t * player)
         ultimatemsg = false;    // clear out any chat messages.
         BorderTopRefresh = true;
     }
+    player->worldTimer++;
     if (player->playerstate == PST_DEAD)
     {
         P_DeathThink(player);
