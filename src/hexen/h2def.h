@@ -553,6 +553,7 @@ typedef struct player_s
 
     int killcount, itemcount, secretcount;      // for intermission
     char message[80];           // hint messages
+    const char* secmessages;        // secret hint messages
     int messageTics;            // counter for showing messages
     short ultimateMessage;
     short yellowMessage;

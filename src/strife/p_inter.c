@@ -424,7 +424,7 @@ boolean P_GivePower(player_t* player, powertype_t power)
 
 
 // villsa [STRIFE]
-static char pickupmsg[80];
+char pickupmsg[80];
 
 //
 // P_TouchSpecialThing

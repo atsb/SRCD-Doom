@@ -24,6 +24,10 @@
 //	Printed strings for translation
 //
 
+// SRCD Strife
+
+#define HUSTR_SECRETFOUND	"A secret is revealed!"
+
 //
 // D_Main.C
 //

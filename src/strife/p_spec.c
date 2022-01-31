@@ -51,6 +51,9 @@
 #include "hu_stuff.h"
 #include "p_dialog.h"
 
+// cndoom, include and define secret message
+#include "m_controls.h"
+#include "d_englsh.h"
 
 //
 // Animating textures and planes
@@ -1509,6 +1512,11 @@ void P_PlayerInSpecialSector (player_t* player)
 
     case 9:
         // SECRET SECTOR
+		// cndoom, crispy, show "Secret Revealed!" message
+		if (cn_secret_message && demoplayback)
+		{
+			player->message = DEH_String(HUSTR_SECRETFOUND);
+		}
         //player->secretcount++; [STRIFE] Don't have a secret count.
         sector->special = 0;
         if(player - players == consoleplayer)

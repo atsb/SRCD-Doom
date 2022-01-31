@@ -23,6 +23,10 @@
 #include "p_local.h"
 #include "s_sound.h"
 
+// cndoom, include and define secret message
+#include "m_controls.h"
+#include "textdefs.h"
+
 // MACROS ------------------------------------------------------------------
 
 #define MAX_TAGGED_LINES 64
@@ -912,9 +916,15 @@ void P_PlayerInSpecialSector(player_t * player)
     switch (sector->special)
     {
         case 9:                // SecretArea
-            player->secretcount++;
-            sector->special = 0;
-            break;
+		// SECRET SECTOR
+		// cndoom, crispy, show "Secret Revealed!" message
+		if (cn_secret_message && demoplayback)
+		{
+            P_SetMessage(player, TXT_ITEMHEALTH, false);
+		}
+		player->secretcount++;
+		sector->special = 0;
+		break;
 
         case 201:
         case 202:

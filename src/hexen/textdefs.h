@@ -14,6 +14,9 @@
 // GNU General Public License for more details.
 //
 
+// SRCD Hexen
+
+#define TXT_SECRETFOUND	"A SECRET IS REVEALED" 
 
 // MN_menu.c ---------------------------------------------------------------
 

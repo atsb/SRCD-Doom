@@ -16,6 +16,10 @@
 
 // DStrings.h
 
+// SRCD Heretic
+
+#define TXT_SECRETFOUND	"A SECRET IS REVEALED" 
+
 //---------------------------------------------------------------------------
 //
 // P_inter.c

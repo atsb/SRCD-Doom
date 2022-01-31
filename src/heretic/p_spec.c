@@ -25,6 +25,10 @@
 #include "s_sound.h"
 #include "v_video.h"
 
+// cndoom, include and define secret message
+#include "m_controls.h"
+#include "dstrings.h"
+
 // Macros
 
 #define MAX_AMBIENT_SFX 8       // Per level
@@ -887,9 +891,15 @@ void P_PlayerInSpecialSector(player_t * player)
             }
             break;
         case 9:                // SecretArea
-            player->secretcount++;
-            sector->special = 0;
-            break;
+		// SECRET SECTOR
+		// cndoom, crispy, show "Secret Revealed!" message
+		if (cn_secret_message && demoplayback)
+		{
+            P_SetMessage(player, DEH_String(TXT_SECRETFOUND), false);
+		}
+		player->secretcount++;
+		sector->special = 0;
+		break;
         case 11:               // Exit_SuperDamage (DOOM E1M8 finale)
             /*
                player->cheats &= ~CF_GODMODE;
