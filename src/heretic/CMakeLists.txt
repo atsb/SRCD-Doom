@@ -11,6 +11,7 @@ add_library(heretic STATIC
             deh_weapon.c
             d_main.c
             d_net.c
+            cn_meta.c           cn_meta.h
                                 doomdata.h
                                 doomdef.h
                                 dstrings.h

@@ -128,6 +128,11 @@ char *savegamedir;
 boolean testcontrols = false;
 int testcontrols_mousespeed;
 
+// cndoom, all level times are saved here on map completion for later use,
+// also keep track of total time spent on all levels so far.
+int leveltimes[MAXLEVELTIMES];
+int ki, it, se;
+
 
 //
 // controls (have defaults)
@@ -1503,6 +1508,49 @@ void G_DoCompleted(void)
     }
     gamestate = GS_INTERMISSION;
     IN_Start();
+
+    //!
+    // @vanilla
+    //
+    // Outputs gameplay stats per map/total to stdout/console
+    //
+
+    if (M_CheckParm("-printstats") || M_CheckParm("-record"))
+    {
+        FILE *ps = fopen("stats.txt", "a");
+        fprintf(ps, "\n### ");
+        fprintf(ps, "E%iM%i #", gameepisode, gamemap);
+        fprintf(ps, "#####################################\n"\
+            "#                                             #\n");
+
+        if (leveltime >= TICRATE * 35 * 60)
+        {
+            fprintf(ps, "#   Time: %03i:%05.2f", leveltime / TICRATE / 60,
+                (float)(leveltime % (60 * TICRATE)) / TICRATE);
+        }
+        else
+        {
+            fprintf(ps, "#   Time:  %02i:%05.2f", leveltime / TICRATE / 60,
+                (float)(leveltime % (60 * TICRATE)) / TICRATE);
+        }
+
+        for (int i = ki = it = se = 0; i < MAXPLAYERS; i++)
+        {
+            ki += players[i].killcount;
+            it += players[i].itemcount;
+            se += players[i].secretcount;
+        }
+
+        fprintf(ps, "       Kills: % 5i/%-5i  #\n", ki, totalkills);
+        fprintf(ps, "#  Items: % 5i/%-5i   ", it, totalitems);
+        fprintf(ps, "Secrets: % 5i/%-5i  #\n", se, totalsecret);
+
+        fprintf(ps, "#                                             #\n"\
+            "###############################################\n");
+
+        fflush(stdout);
+        fclose(ps);
+    }
 }
 
 //============================================================================
@@ -2075,7 +2123,10 @@ boolean G_CheckDemoStatus(void)
         M_WriteFile(demoname, demobuffer, demo_p - demobuffer);
         Z_Free(demobuffer);
         demorecording = false;
-        I_Error("Demo %s recorded", demoname);
+        // cndoom, attach metadata to the file here
+        CN_WriteMetaData(demoname);
+        // cndoom, disable popup after recording demo
+        //I_Error ("Demo %s recorded",demoname); 
     }
 
     return false;

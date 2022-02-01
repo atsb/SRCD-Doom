@@ -61,6 +61,22 @@
 
 #define	SAVEGAMENAME "hticsav"
 
+// cndoom, all level times are saved here on map completion for later use,
+// also keep track of total time spent on all levels so far.
+#define MAXLEVELTIMES 49 // plus serpant riders
+
+// -------------------------------------
+// Scores, rating.
+// Statistics on a given map, for intermission.
+//
+extern  int	totalkills;
+extern	int	totalitems;
+extern	int	totalsecret;
+
+// Timer, for scores.
+extern  int	levelstarttic;	// gametic at level start
+extern  int	leveltime;	// tics in game play for par
+
 /*
 ===============================================================================
 
