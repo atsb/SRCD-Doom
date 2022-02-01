@@ -162,8 +162,8 @@ typedef struct player_s
 
      // For intermission stats.
     short		killcount;    // [STRIFE] Changed to short
-    //int		itemcount;    // [STRIFE] Eliminated these.
-    //int		secretcount;
+    int		itemcount;
+    int		secretcount;
 
     // Hint messages.
     const char		*message;

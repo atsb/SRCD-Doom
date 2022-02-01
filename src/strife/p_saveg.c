@@ -822,13 +822,11 @@ static void saveg_read_player_t(player_t *str)
     // short killcount;
     str->killcount = saveg_read16(); // [STRIFE] 32 -> 16
 
-    // haleyjd 08/30/10 [STRIFE] No itemcount.
-    // int itemcount;
-    //str->itemcount = saveg_read32();
+    int itemcount;
+    str->itemcount = saveg_read32();
 
-    // haleyjd 08/30/10 [STRIFE] No secretcount.
-    // int secretcount;
-    //str->secretcount = saveg_read32();
+    int secretcount;
+    str->secretcount = saveg_read32();
 
     // char* message;
     str->message = saveg_readp();
@@ -1005,13 +1003,11 @@ static void saveg_write_player_t(player_t *str)
     // short killcount;
     saveg_write16(str->killcount); // [STRIFE] 32 -> 16
 
-    // haleyjd 08/30/10 [STRIFE] No itemcount
-    // int itemcount;
-    //saveg_write32(str->itemcount);
+    int itemcount;
+    saveg_write32(str->itemcount);
 
-    // haleyjd 08/30/10 [STRIFE] No secretcount
-    // int secretcount;
-    //saveg_write32(str->secretcount);
+    int secretcount;
+    saveg_write32(str->secretcount);
 
     // char* message;
     saveg_writep(str->message);

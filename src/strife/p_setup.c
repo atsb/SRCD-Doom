@@ -759,7 +759,6 @@ P_SetupLevel
 
     for (i=0 ; i<MAXPLAYERS ; i++)
     {
-        // haleyjd 20100830: [STRIFE] Removed secretcount, itemcount
         //         20110205: [STRIFE] Initialize players.allegiance
         players[i].allegiance = i;
         players[i].killcount = 0;

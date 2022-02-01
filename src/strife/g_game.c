@@ -46,6 +46,7 @@
 #include "hu_stuff.h"
 #include "st_stuff.h"
 #include "am_map.h"
+#include "d_player.h"
 
 // Needs access to LFB.
 #include "v_video.h"
@@ -154,6 +155,7 @@ byte            consistancy[MAXPLAYERS][BACKUPTICS];
 int leveltimes[MAXLEVELTIMES];
 int totaltime;
 int ki, it, se;
+extern int itemcount, secretcount;
  
 #define MAXPLMOVE		(forwardmove[1]) 
  
@@ -1503,6 +1505,59 @@ void G_DoCompleted (void)
         G_DoSaveGame(savepathtemp);
     
     gameaction = ga_worlddone;
+
+    // cndoom, save leveltime here for later use, also calculate total
+        // time spent on all levels so far for use in the intermission screen
+    leveltimes[gamemap - 1] = leveltime;
+
+    for (i = 0, totaltime = 0; i < MAXLEVELTIMES; i++)
+        totaltime += leveltimes[i];
+
+    //!
+    // @vanilla
+    //
+    // Outputs gameplay stats per map/total to stdout/console
+    //
+
+    if (M_CheckParm("-printstats") || M_CheckParm("-record"))
+    {
+        FILE *ps = fopen("stats.txt", "a");
+        fprintf(ps, "\n### ");
+        fprintf(ps, "MAP%02i ", gamemap);
+        fprintf(ps, "#####################################\n"\
+            "#                                             #\n");
+
+        if (leveltime >= TICRATE * 35 * 60)
+        {
+            fprintf(ps, "#   Time: %03i:%05.2f", leveltime / TICRATE / 60,
+                (float)(leveltime % (60 * TICRATE)) / TICRATE);
+        }
+        else
+        {
+            fprintf(ps, "#   Time:  %02i:%05.2f", leveltime / TICRATE / 60,
+                (float)(leveltime % (60 * TICRATE)) / TICRATE);
+        }
+
+        for (i = ki = it = se = 0; i < MAXPLAYERS; i++)
+        {
+            ki += players[i].killcount;
+            it += players[i].itemcount;
+            se += players[i].secretcount;
+        }
+
+        fprintf(ps, "       Kills: % 5i/%-5i  #\n", ki, totalkills);
+        fprintf(ps, "#  Items: % 5i/%-5i   ", it, totalitems);
+        fprintf(ps, "Secrets: % 5i/%-5i  #\n", se, totalsecret);
+
+        fprintf(ps, "#                                             #\n"\
+            "################### Total time: %02i:%02i:%05.2f ###\n",
+            totaltime / TICRATE / 60 / 60,
+            (totaltime / TICRATE / 60) % 60,
+            (float)(totaltime % (60 * TICRATE)) / TICRATE);
+
+        fflush(stdout);
+        fclose(ps);
+    }
 } 
 
 
@@ -2467,7 +2522,10 @@ boolean G_CheckDemoStatus (void)
         M_WriteFile (demoname, demobuffer, demo_p - demobuffer); 
         Z_Free (demobuffer); 
         demorecording = false; 
-        I_Error ("Demo %s recorded", demoname); 
+        // cndoom, attach metadata to the file here
+        CN_WriteMetaData(demoname);
+        // cndoom, disable popup after recording demo
+        //I_Error ("Demo %s recorded",demoname); 
     } 
 
     return false; 

@@ -1517,7 +1517,7 @@ void P_PlayerInSpecialSector (player_t* player)
 		{
 			player->message = DEH_String(HUSTR_SECRETFOUND);
 		}
-        //player->secretcount++; [STRIFE] Don't have a secret count.
+        player->secretcount++;
         sector->special = 0;
         if(player - players == consoleplayer)
             S_StartSound(NULL, sfx_yeah);

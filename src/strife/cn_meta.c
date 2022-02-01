@@ -195,7 +195,6 @@ void CN_WriteMetaData(char *filename)
     write_bytes(metafp, "#", 1);
 
     // write episode
-	if (gameepisode>=1 && gameepisode<=4)   sprintf(temp, "%d", gameepisode);
 	write_bytes(metafp, temp, 1);
     write_bytes(metafp, "#", 1);
 
