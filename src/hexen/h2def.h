@@ -51,6 +51,10 @@
 #define HEXEN_VERSION 110
 #define HEXEN_VERSION_TEXT "v1.1"
 
+// cndoom, all level times are saved here on map completion for later use,
+// also keep track of total time spent on all levels so far.
+#define MAXLEVELTIMES 31
+
 // if rangecheck is undefined, most parameter validation debugging code
 // will not be compiled
 #ifndef NORANGECHECKING

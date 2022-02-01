@@ -8,6 +8,7 @@ add_library(hexen STATIC
             f_finale.c
             g_game.c
                                 h2def.h
+            cn_meta.c           cn_meta.h
             h2_main.c
             info.c              info.h
             in_lude.c

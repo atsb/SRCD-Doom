@@ -112,6 +112,10 @@ int mouseSensitivity = 5;
 int LeaveMap;
 static int LeavePosition;
 
+// cndoom, all level times are saved here on map completion for later use,
+// also keep track of total time spent on all levels so far.
+int leveltimes[MAXLEVELTIMES];
+
 //#define MAXPLMOVE       0x32 // Old Heretic Max move
 
 fixed_t MaxPlayerMove[NUMCLASSES] = { 0x3C, 0x32, 0x2D, 0x31 };
@@ -1555,6 +1559,41 @@ void G_DoCompleted(void)
     {
         gamestate = GS_INTERMISSION;
         IN_Start();
+        //!
+        // @vanilla
+        //
+        // Outputs gameplay stats per map/total to stdout/console
+        //
+
+        if (M_CheckParm("-printstats") || M_CheckParm("-record"))
+        {
+            FILE* ps = fopen("stats.txt", "a");
+            fprintf(ps, "\n### ");
+            fprintf(ps, "MAP%02i #", gameepisode, gamemap);
+            fprintf(ps, "####################################\n"\
+                "#                                             #\n");
+
+            if (leveltime >= TICRATE * 35 * 60)
+            {
+                fprintf(ps, "#   Time: %03i:%05.2f", leveltime / TICRATE / 60,
+                    (float)(leveltime % (60 * TICRATE)) / TICRATE);
+            }
+            else
+            {
+                fprintf(ps, "#   Time:  %02i:%05.2f", leveltime / TICRATE / 60,
+                    (float)(leveltime % (60 * TICRATE)) / TICRATE);
+            }
+
+            fprintf(ps, "                           #\n");
+            fprintf(ps, "#              ");
+            fprintf(ps, "                               #\n");
+
+            fprintf(ps, "#                                             #\n"\
+                "###############################################\n");
+
+            fflush(stdout);
+            fclose(ps);
+        }
     }
 
 /*
@@ -2183,7 +2222,10 @@ boolean G_CheckDemoStatus(void)
         M_WriteFile(demoname, demobuffer, demo_p - demobuffer);
         Z_Free(demobuffer);
         demorecording = false;
-        I_Error("Demo %s recorded", demoname);
+        // cndoom, attach metadata to the file here
+        CN_WriteMetaData(demoname);
+        // cndoom, disable popup after recording demo
+        //I_Error ("Demo %s recorded",demoname); 
     }
 
     return false;
