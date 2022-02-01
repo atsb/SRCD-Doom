@@ -1540,6 +1540,12 @@ void G_DoCompleted(void)
 
     gameaction = ga_nothing;
 
+    //srcd - reset the timer after each level, to get true times for the stats file.
+    if (M_CheckParm("-printstats") || M_CheckParm("-record"))
+    {
+    	players[i].worldTimer = 0;
+    }
+
     // quit demo unless -demoextend
     if (!demoextend && G_CheckDemoStatus())
     {
@@ -1561,6 +1567,7 @@ void G_DoCompleted(void)
     {
         gamestate = GS_INTERMISSION;
         IN_Start();
+
         //!
         // @vanilla
         //
