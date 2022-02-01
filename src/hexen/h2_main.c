@@ -909,7 +909,10 @@ static void DrawAndBlit(void)
             {
                 R_RenderPlayerView(&players[displayplayer]);
             }
-    	    DrawWorldTimer();
+            if (cn_timer_enabled)
+            { 
+                 DrawWorldTimer();
+            }
             CT_Drawer();
             UpdateState |= I_FULLVIEW;
             SB_Drawer();

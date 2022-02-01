@@ -167,7 +167,10 @@ void D_Display(void)
                 AM_Drawer();
             else
                 R_RenderPlayerView(&players[displayplayer]);
-    	    DrawWorldTimer();
+            if (cn_timer_enabled)
+            { 
+    	        DrawWorldTimer();
+            }
             CT_Drawer();
             UpdateState |= I_FULLVIEW;
             SB_Drawer();

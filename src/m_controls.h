@@ -172,6 +172,9 @@ extern int joybautomap;
 
 extern int dclick_use;
 
+// srcd - extern the timer
+extern int cn_timer_enabled;
+
 void M_BindBaseControls(void);
 void M_BindHereticControls(void);
 void M_BindHexenControls(void);

@@ -1515,7 +1515,10 @@ void AM_Drawer(void)
         AM_drawGrid(GRIDCOLORS);
     AM_drawWalls();
     AM_drawPlayers();
-    DrawWorldTimer();
+    if (cn_timer_enabled)
+    { 
+        DrawWorldTimer();
+    }
     if (cheating == 2)
         AM_drawThings(THINGCOLORS, THINGRANGE);
 //  AM_drawCrosshair(XHAIRCOLORS);
