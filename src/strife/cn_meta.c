@@ -25,7 +25,7 @@ boolean     movieparm;
 boolean     coopparm;
 boolean     dmparm;
 
-char        cn_meta_signature[4]    = "CNDM";
+char        cn_meta_signature[4]    = "CNSE";
 char        cn_meta_version[4]      = "0002";
 
 static FILE *metafp;
