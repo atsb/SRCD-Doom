@@ -9,6 +9,9 @@ set(STRIFE_SOURCES
     deh_sound.c
     deh_thing.c
     deh_weapon.c
+    cn_meta.c       cn_meta.h
+    cn_timer.c      cn_timer.h
+
                     d_englsh.h
     d_items.c       d_items.h
     d_main.c        d_main.h

@@ -166,6 +166,14 @@ extern  int	totalkills;
 //extern	int	totalitems; [STRIFE] unused
 extern	int	totalsecret;
 
+// -------------------------------------
+// Scores, rating.
+// Statistics on a given map, for intermission.
+//
+extern  int	totalkills;
+extern	int	totalitems;
+extern	int	totalsecret;
+
 // Timer, for scores.
 extern  int	levelstarttic;	// gametic at level start
 extern  int	leveltime;	// tics in game play for par

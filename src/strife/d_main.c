@@ -80,6 +80,10 @@
 
 #include "d_main.h"
 
+// cndoom, includes
+#include "cn_timer.h"
+#include "cn_meta.h"
+
 //
 // D-DoomLoop()
 // Not a globally visible function,
@@ -235,6 +239,11 @@ void D_Display (void)
         R_ExecuteSetViewSize ();
         oldgamestate = -1;                      // force background redraw
         borderdrawcount = 3;
+        // cndoom, update timer location if needed
+        if (cn_timer_enabled)
+        {
+            CN_UpdateTimerLocation(1);
+        }
     }
 
     // save the current screen if about to wipe
@@ -359,6 +368,15 @@ void D_Display (void)
     // menus go directly to the screen
     M_Drawer ();          // menu is drawn even on top of everything
     NetUpdate ();         // send out any new accumulation
+
+    // cndoom, draw timer if neede
+    if (gamestate == GS_LEVEL && !inhelpscreens && !automapactive && !wipe)
+    {
+        if (cn_timer_enabled)
+        {
+            CN_DrawTimer();
+        }
+    }
 
 
     // normal update
@@ -539,6 +557,10 @@ void D_DoomLoop (void)
 
     V_RestoreBuffer();
     R_ExecuteSetViewSize();
+
+    // cndoom, show timer
+    CN_ResetTimer();
+    CN_UpdateTimerLocation(1);
 
     D_StartGameLoop();
 

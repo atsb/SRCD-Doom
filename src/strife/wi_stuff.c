@@ -45,6 +45,9 @@
 
 #include "wi_stuff.h"
 
+// cndoom, include cn_timer.h
+#include "cn_timer.h"
+
 //
 // Data needed to add patches to full screen intermission pics.
 // Patches are statistics messages, and animations.
@@ -342,6 +345,19 @@ static patch_t*		yah[3] = { NULL, NULL, NULL };
 
 // splat
 static patch_t*		splat[2] = { NULL, NULL };
+
+// cndoom, colon and 0-9 needed in cn_timer.c
+// so they are not static anymore, wi prefix added to names
+
+// %, : graphics
+// cndoom, default percent
+static patch_t*		wipercent;
+// cndoom, default static colon
+extern patch_t*		wicolon;
+
+// 0-9 graphic
+// cndoom, default static num
+extern patch_t*		winum[10];
 
 // %, : graphics
 static patch_t*		percent;
@@ -665,13 +681,14 @@ WI_drawNum
     if (n == 1994)
 	return 0;
 
-    // draw the new number
-    while (digits--)
-    {
-	x -= fontwidth;
-	V_DrawPatch(x, y, num[ n % 10 ]);
-	n /= 10;
-    }
+	// draw the new number
+	while (digits--)
+	{
+		x -= fontwidth;
+		// cndoom, default num
+		V_DrawPatch(x, y, winum[n % 10]);
+		n /= 10;
+	}
 
     // draw a minus sign if necessary
     if (neg)
@@ -1065,7 +1082,8 @@ void WI_drawDeathmatchStats(void)
 
     // draw stats
     y = DM_MATRIXY+10;
-    w = SHORT(num[0]->width);
+	// cndoom, default num
+	w = SHORT(winum[0]->width);
 
     for (i=0 ; i<MAXPLAYERS ; i++)
     {
@@ -1301,6 +1319,12 @@ void WI_drawNetgameStats(void)
 	V_DrawPatch(NG_STATSX+4*NG_SPACINGX-SHORT(frags->width),
 		    NG_STATSY, frags);
 
+	// cndoom, draw timer for NET games
+	V_DrawPatch(SP_TIMEX, SP_TIMEY, timepatch);
+	CN_DrawIntermissionTime(SCREENWIDTH / 2 - SP_TIMEX + 16 /* + 2*SHORT(winum[0]->width) + SHORT(wicolon->width) */,
+		SP_TIMEY /* + SHORT(timepatch->height) */,
+		plrs[me].stime);
+
     // draw stats
     y = NG_STATSY + SHORT(kills->height);
 
@@ -1453,7 +1477,8 @@ void WI_drawStats(void)
     // line height
     int lh;	
 
-    lh = (3*SHORT(num[0]->height))/2;
+	// cndoom, default num
+	lh = (3 * SHORT(winum[0]->height)) / 2;
 
     WI_slamBackground();
 
@@ -1471,8 +1496,18 @@ void WI_drawStats(void)
     V_DrawPatch(SP_STATSX, SP_STATSY+2*lh, sp_secret);
     WI_drawPercent(SCREENWIDTH - SP_STATSX, SP_STATSY+2*lh, cnt_secret[0]);
 
-    V_DrawPatch(SP_TIMEX, SP_TIMEY, timepatch);
-    WI_drawTime(SCREENWIDTH/2 - SP_TIMEX, SP_TIMEY, cnt_time);
+	// cndoom, show new timer
+	/*
+	V_DrawPatch(SP_TIMEX, SP_TIMEY, timepatch);
+	WI_drawTime(SCREENWIDTH/2 - SP_TIMEX, SP_TIMEY, cnt_time);
+	*/
+	V_DrawPatch(SP_TIMEX, SP_TIMEY, timepatch);
+	if (sp_state >= 8)
+	{
+		CN_DrawIntermissionTime(SCREENWIDTH / 2 - SP_TIMEX + 16 /* + 2*SHORT(winum[0]->width) + SHORT(wicolon->width) */,
+			SP_TIMEY /* + SHORT(timepatch->height) */,
+			plrs[me].stime);
+	}
 
     if (wbs->epsd < 3)
     {
@@ -1613,12 +1648,13 @@ static void WI_loadUnloadData(load_callback_t callback)
     // More hacks on minus sign.
     callback(DEH_String("WIMINUS"), &wiminus);
 
-    for (i=0;i<10;i++)
-    {
-	 // numbers 0-9
-	DEH_snprintf(name, 9, "WINUM%d", i);
-        callback(name, &num[i]);
-    }
+	for (i = 0; i < 10; i++)
+	{
+		// numbers 0-9
+		DEH_snprintf(name, 9, "WINUM%d", i);
+		// cndoom, default num
+		callback(name, &winum[i]);
+	}
 
     // percent sign
     callback(DEH_String("WIPCNT"), &percent);

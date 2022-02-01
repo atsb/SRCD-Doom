@@ -125,6 +125,7 @@ boolean         turbodetected[MAXPLAYERS];
  
 int             consoleplayer;          // player taking events and displaying 
 int             displayplayer;          // view being displayed 
+int             totalkills, totalitems, totalsecret;    // for intermission 
 int             levelstarttic;          // gametic at level start 
 int             totalkills, /*totalitems,*/ totalsecret;    // for intermission 
  
@@ -146,6 +147,13 @@ boolean         testcontrols = false;    // Invoked by setup to test controls
 wbstartstruct_t wminfo;                 // parms for world map / intermission 
  
 byte            consistancy[MAXPLAYERS][BACKUPTICS]; 
+
+// cndoom, all level times are saved here on map completion for later use,
+// also keep track of total time spent on all levels so far.
+#define MAXLEVELTIMES 34
+int leveltimes[MAXLEVELTIMES];
+int totaltime;
+int ki, it, se;
  
 #define MAXPLMOVE		(forwardmove[1]) 
  
