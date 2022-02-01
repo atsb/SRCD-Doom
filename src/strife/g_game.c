@@ -69,6 +69,8 @@
 
 #include "g_game.h"
 
+#include "cn_meta.h"
+
 
 #define SAVEGAMESIZE	0x2c000
 

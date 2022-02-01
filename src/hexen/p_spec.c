@@ -918,7 +918,7 @@ void P_PlayerInSpecialSector(player_t * player)
         case 9:                // SecretArea
 		// SECRET SECTOR
 		// cndoom, crispy, show "Secret Revealed!" message
-		if (cn_secret_message && demoplayback)
+		if (cn_secret_message)
 		{
             P_SetMessage(player, TXT_ITEMHEALTH, false);
 		}

@@ -30,6 +30,8 @@
 #include "p_local.h"
 #include "v_video.h"
 
+#include "cn_meta.h"
+
 #define AM_STARTKEY	9
 
 // External functions

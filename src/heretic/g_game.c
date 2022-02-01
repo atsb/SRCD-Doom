@@ -33,6 +33,8 @@
 #include "s_sound.h"
 #include "v_video.h"
 
+#include "cn_meta.h"
+
 // Macros
 
 #define AM_STARTKEY     9

@@ -1076,7 +1076,7 @@ void P_PlayerInSpecialSector (player_t* player)
       case 9:
 	// SECRET SECTOR
 	// cndoom, crispy, show "Secret Revealed!" message
-	if (showMessages && cn_secret_message && demoplayback)
+	if (showMessages && cn_secret_message)
 	{
 	    player->message = HUSTR_SECRETFOUND;
 	}
